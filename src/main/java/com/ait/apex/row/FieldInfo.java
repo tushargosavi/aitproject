@@ -1,8 +1,7 @@
 package com.ait.apex.row;
 
 
-public class FieldInfo
-{
+public class FieldInfo {
 	String name;
 	DataType dataType;
 	
@@ -22,14 +21,10 @@ public class FieldInfo
 		this.dataType = dataType;
 	}
 	
-	public boolean isNull(Object o)
-	{
-		if(o == null)
-		{
+	public boolean isNull(Object o) {
+		if (o == null) {
 			return true;
-		}
-		else
-		{
+		} else {
 			return false;
 		}
 	}
