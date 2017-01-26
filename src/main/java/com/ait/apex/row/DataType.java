@@ -8,7 +8,5 @@ public enum DataType
 	BOOLEAN,
 	LONG,
 	FLOAT,
-	DOUBLE,
-	SHORT,
-	BYTE
+	DOUBLE
 }
