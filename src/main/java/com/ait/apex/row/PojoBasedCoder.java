@@ -4,7 +4,8 @@ package com.ait.apex.row;
 import com.ait.apex.platform.Platform;
 
 public class PojoBasedCoder implements Coder{
-
+	
+	StringFunctions stringFunctions = new StringFunctions();
 	ByteLength length = new ByteLength();
 
 	@Override
@@ -15,13 +16,11 @@ public class PojoBasedCoder implements Coder{
 		int size = length.getByteLength(rowMeta, o);
 		row.dataBytes = new byte[size];
 		
-		for(FieldInfo fieldInfo : rowMeta.getFieldInfoList())
-		{
-			switch (fieldInfo.getDataType())
-			{
+		for (FieldInfo fieldInfo : rowMeta.getFieldInfoList()) {
+			switch (fieldInfo.getDataType()) {
 				case STRING:
 					String str = (String) o.getClass().getField(fieldInfo.getName()).get(o);
-					Platform.putString(row.dataBytes, Platform.INT_ARRAY_OFFSET + offset, varoffset, str);
+					stringFunctions.putString(row.dataBytes, Platform.INT_ARRAY_OFFSET + offset, varoffset, str);
 					offset += 8;
 					break;
 				
@@ -30,14 +29,32 @@ public class PojoBasedCoder implements Coder{
 					Platform.putInt(row.dataBytes, Platform.INT_ARRAY_OFFSET + offset, intVal);
 					offset += 4;
 					break;
-					
+				
 				case LONG:
 					long longVal = (long) o.getClass().getField(fieldInfo.getName()).get(o);
 					Platform.putLong(row.dataBytes, Platform.LONG_ARRAY_OFFSET + offset, longVal);
 					offset += 8;
 					break;
-					
+				
 				case CHARACTER:
+					break;
+				
+				case DOUBLE:
+					double doubleVal = (double) o.getClass().getField(fieldInfo.getName()).get(o);
+					Platform.putDouble(row.dataBytes, Platform.DOUBLE_ARRAY_OFFSET + offset, doubleVal);
+					offset += 8;
+					break;
+				
+				case BOOLEAN:
+					boolean boolval = (boolean) o.getClass().getField(fieldInfo.getName()).get(o);
+					Platform.putBoolean(row.dataBytes, Platform.BOOLEAN_ARRAY_OFFSET + offset, boolval);
+					offset += 1;
+					break;
+				
+				case FLOAT:
+					float floatVal = (float) o.getClass().getField(fieldInfo.getName()).get(o);
+					Platform.putFloat(row.dataBytes, Platform.FLOAT_ARRAY_OFFSET + offset, floatVal);
+					offset += 4;
 					break;
 			}
 		}
@@ -49,13 +66,12 @@ public class PojoBasedCoder implements Coder{
 	public Object decoder(RowMeta rowMeta, Row row, Object object) throws NoSuchFieldException, IllegalAccessException
 	{
 		int offset = 0;
-
 		for(FieldInfo fieldInfo : rowMeta.getFieldInfoList())
 		{
 			switch (fieldInfo.getDataType())
 			{
 				case STRING:
-					String strVal = Platform.getString(row.dataBytes, Platform.INT_ARRAY_OFFSET + offset);
+					String strVal = stringFunctions.getString(row.dataBytes, Platform.INT_ARRAY_OFFSET + offset);
 					object.getClass().getField(fieldInfo.getName()).set(object, strVal);
 					offset += 8;
 					break;
@@ -73,6 +89,23 @@ public class PojoBasedCoder implements Coder{
 					break;
 
 				case CHARACTER:
+					break;
+				
+				case DOUBLE:
+					double doubleVal = Platform.getDouble(row.dataBytes, Platform.DOUBLE_ARRAY_OFFSET + offset);
+					object.getClass().getField(fieldInfo.getName()).set(object, doubleVal);
+					offset += 8;
+					break;
+				
+				case BOOLEAN:
+					boolean boolVal = Platform.getBoolean(row.dataBytes, Platform.BOOLEAN_ARRAY_OFFSET + offset);
+					object.getClass().getField(fieldInfo.getName()).set(object, boolVal);
+					offset += 8;
+					break;
+				
+				case FLOAT:
+					float floatVal = Platform.getFloat(row.dataBytes, Platform.FLOAT_ARRAY_OFFSET + offset);
+					object.getClass().getField(fieldInfo.getName()).set(object, floatVal);
 					break;
 			}
 		}

@@ -128,35 +128,6 @@ public final class Platform
     _UNSAFE.putDouble(object, offset, value);
   }
 
-  public static void putString(Object object, long offset, int varoffset, String value)
-  {
-    putInt(object, offset, varoffset);
-    offset += 4;
-
-    putInt(object, offset, value.length());
-
-    byte[] bytestr = value.getBytes();
-
-    for(int i=0;i<bytestr.length;i++)
-    {
-      Platform.putByte(object, Platform.BYTE_ARRAY_OFFSET + varoffset + i, bytestr[i]);
-    }
-  }
-
-  public static String getString(Object object, long offset)
-  {
-    StringBuilder stringBuilder = new StringBuilder("");
-    int varoffset = getInt(object, offset);
-
-    int len = getInt(object, offset + 4);
-    for(int i=0;i<len;i++)
-    {
-      stringBuilder.append((char)getByte(object, offset + varoffset + i));
-    }
-
-    return stringBuilder.toString();
-  }
-
   public static Object getObjectVolatile(Object object, long offset)
   {
     return _UNSAFE.getObjectVolatile(object, offset);

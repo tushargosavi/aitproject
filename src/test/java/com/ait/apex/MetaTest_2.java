@@ -28,16 +28,15 @@ public class MetaTest_2 {
 		}
 
 		@Override
-		public String toString()
-		{
+		public String toString() {
 			return "Person{" +
-				"name='" + name + '\'' +
-				", age=" + age +
-				", number=" + number +
-				", character=" + character +
-				'}';
+					"name='" + name + '\'' +
+					", age=" + age +
+					", number=" + number +
+					", character=" + character +
+					'}';
 		}
-
+		
 		@Override
 		public boolean equals(Object o) {
 			if (this == o) return true;

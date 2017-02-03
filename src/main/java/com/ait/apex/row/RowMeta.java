@@ -14,6 +14,12 @@ public class RowMeta {
 		fieldInfoList.add(fieldInfo);
 	}
 	
+	public void removeField(String name)
+	{
+		int index = fieldInfoList.indexOf(name);
+		fieldInfoList.remove(index);
+	}
+	
 	public List<FieldInfo> getFieldInfoList()
 	{
 		return fieldInfoList;
