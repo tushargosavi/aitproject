@@ -9,6 +9,5 @@ public enum DataType
 	LONG,
 	FLOAT,
 	DOUBLE,
-	SHORT,
-	BYTE
+	CHARACTER
 }

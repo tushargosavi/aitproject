@@ -30,9 +30,10 @@
       <scope>test</scope>
     </dependency>
       <dependency>
-          <groupId>org.jetbrains</groupId>
-          <artifactId>annotations</artifactId>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
           <version>RELEASE</version>
       </dependency>
+
   </dependencies>
 </project>

@@ -8,6 +8,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.nio.ByteBuffer;
 
+import com.ait.apex.row.ByteLength;
+
 public final class Platform
 {
 
