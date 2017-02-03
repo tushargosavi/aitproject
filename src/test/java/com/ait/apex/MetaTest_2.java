@@ -26,7 +26,18 @@ public class MetaTest_2 {
 			this.number = number;
 			this.character = character;
 		}
-		
+
+		@Override
+		public String toString()
+		{
+			return "Person{" +
+				"name='" + name + '\'' +
+				", age=" + age +
+				", number=" + number +
+				", character=" + character +
+				'}';
+		}
+
 		@Override
 		public boolean equals(Object o) {
 			if (this == o) return true;
@@ -90,6 +101,7 @@ public class MetaTest_2 {
 	@Test
 	public void testEncoder() throws NoSuchFieldException, IllegalAccessException {
 		RowMeta rowMeta = new RowMeta();
+		rowMeta.addField("name", DataType.STRING);
 		rowMeta.addField("age", DataType.INTEGER);
 		rowMeta.addField("number", DataType.LONG);
 		
@@ -104,7 +116,7 @@ public class MetaTest_2 {
 		PojoBasedCoder coder = new PojoBasedCoder();
 		row = coder.encoder(rowMeta, person);
 
-		System.out.println(row.getDataBytes().length);
+		System.out.println(length.getVarOffset(rowMeta));
 
 		System.out.println(Arrays.toString(row.getDataBytes()));
 	}
@@ -138,7 +150,7 @@ public class MetaTest_2 {
 
 		Person person1 = new Person();
 
-		person1 = (Person)enCoder.decoder(rowMeta, row);
+		person1 = (Person)enCoder.decoder(rowMeta, row, person1);
 		System.out.println(person1.toString());
 	}
 }

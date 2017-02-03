@@ -131,7 +131,7 @@ public final class Platform
   public static void putString(Object object, long offset, int varoffset, String value)
   {
     putInt(object, offset, varoffset);
-    offset += 1;
+    offset += 4;
 
     putInt(object, offset, value.length());
 
@@ -147,12 +147,11 @@ public final class Platform
   {
     StringBuilder stringBuilder = new StringBuilder("");
     int varoffset = getInt(object, offset);
-    offset += 1;
 
-    int len = getInt(object, offset);
+    int len = getInt(object, offset + 4);
     for(int i=0;i<len;i++)
     {
-      stringBuilder.append((char)getByte(object, varoffset + i));
+      stringBuilder.append((char)getByte(object, offset + varoffset + i));
     }
 
     return stringBuilder.toString();

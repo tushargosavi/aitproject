@@ -31,7 +31,7 @@ public class ByteLength
 					len += 4;
 					String strValue = (String) o.getClass().getField(fieldInfo.getName()).get(o);
 					len += strValue.getBytes().length;
-					len += 1;
+					len += 4;
 			}
 		}
 		return len;
@@ -64,7 +64,7 @@ public class ByteLength
 					break;
 				case STRING:
 					len += 4;
-					len += 1;
+					len += 4;
 			}
 		}
 		return len;

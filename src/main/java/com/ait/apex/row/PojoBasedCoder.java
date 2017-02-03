@@ -22,7 +22,7 @@ public class PojoBasedCoder implements Coder{
 				case STRING:
 					String str = (String) o.getClass().getField(fieldInfo.getName()).get(o);
 					Platform.putString(row.dataBytes, Platform.INT_ARRAY_OFFSET + offset, varoffset, str);
-					offset += 4;
+					offset += 8;
 					break;
 				
 				case INTEGER:
@@ -46,10 +46,8 @@ public class PojoBasedCoder implements Coder{
 	
 	
 	@Override
-	public Object decoder(RowMeta rowMeta, Row row) throws NoSuchFieldException, IllegalAccessException
+	public Object decoder(RowMeta rowMeta, Row row, Object object) throws NoSuchFieldException, IllegalAccessException
 	{
-		Object object = null;
-
 		int offset = 0;
 
 		for(FieldInfo fieldInfo : rowMeta.getFieldInfoList())
@@ -59,7 +57,7 @@ public class PojoBasedCoder implements Coder{
 				case STRING:
 					String strVal = Platform.getString(row.dataBytes, Platform.INT_ARRAY_OFFSET + offset);
 					object.getClass().getField(fieldInfo.getName()).set(object, strVal);
-					offset += 4;
+					offset += 8;
 					break;
 
 				case INTEGER:
@@ -79,6 +77,6 @@ public class PojoBasedCoder implements Coder{
 			}
 		}
 
-		return null;
+		return object;
 	}
 }
