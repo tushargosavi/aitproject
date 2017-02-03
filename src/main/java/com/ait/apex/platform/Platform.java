@@ -8,6 +8,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.nio.ByteBuffer;
 
+import com.ait.apex.row.ByteLength;
+
 public final class Platform
 {
 
@@ -124,6 +126,35 @@ public final class Platform
   public static void putDouble(Object object, long offset, double value)
   {
     _UNSAFE.putDouble(object, offset, value);
+  }
+
+  public static void putString(Object object,long offset, int varoffset, String value)
+  {
+    putInt(object, Platform.INT_ARRAY_OFFSET + offset, varoffset);
+    offset += 1;
+
+    putInt(object, Platform.INT_ARRAY_OFFSET + offset, value.length());
+
+    byte[] bytestr = value.getBytes();
+
+    for(int i=0;i<bytestr.length;i++)
+    {
+      Platform.putByte(bytestr, Platform.BYTE_ARRAY_OFFSET + i, bytestr[i]);
+    }
+  }
+
+  public static String getString(Object object, long offset, int rev_varoffset)
+  {
+    StringBuilder stringBuilder = new StringBuilder("");
+    offset += 1;
+
+    int len = Platform.getInt(object, Platform.INT_ARRAY_OFFSET + offset);
+    for(int i=0;i<len;i++)
+    {
+      stringBuilder.append((char)Platform.getByte(object, Platform.INT_ARRAY_OFFSET + rev_varoffset + i));
+    }
+
+    return stringBuilder.toString();
   }
 
   public static Object getObjectVolatile(Object object, long offset)
