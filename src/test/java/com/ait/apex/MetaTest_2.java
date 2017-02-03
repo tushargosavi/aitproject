@@ -1,36 +1,101 @@
 package com.ait.apex;
 
+import com.ait.apex.row.*;
+import org.junit.Test;
+
 /**
  * Created by Akshay on 1/27/2017.
  */
-public class MetaTest_2
-{
-	public class TestClass2
-	{
-		public int intField;
-		public char charField;
-		public long longField;
-		public String stringField;
+public class MetaTest_2 {
+	public class Person {
+		public String name;
+		public int age;
+		public long number;
+		public char character;
 		
-		public TestClass2(int intField, char charField, long longField, String stringField) {
-			this.intField = intField;
-			this.charField = charField;
-			this.longField = longField;
-			this.stringField = stringField;
+		public Person(String name, int age, long number, char character) {
+			this.name = name;
+			this.age= age;
+			this.number = number;
+			this.character = character;
 		}
 		
 		@Override
-		public String toString() {
-			return "TestClass2{" +
-					"intField=" + intField +
-					", charField=" + charField +
-					", longField=" + longField +
-					", stringField='" + stringField + '\'' +
-					'}';
+		public boolean equals(Object o) {
+			if (this == o) return true;
+			if (o == null || getClass() != o.getClass()) return false;
+			
+			Person person = (Person) o;
+			
+			if (age != person.age) return false;
+			if (number != person.number) return false;
+			if (character != person.character) return false;
+			return name != null ? name.equals(person.name) : person.name == null;
+		}
+		
+		@Override
+		public int hashCode() {
+			int result = name != null ? name.hashCode() : 0;
+			result = 31 * result + age;
+			result = 31 * result + (int) (number ^ (number >>> 32));
+			result = 31 * result + (int) character;
+			return result;
 		}
 	}
 	
-	public static void main(String[] args) {
+	@Test
+	public void testLength() throws NoSuchFieldException, IllegalAccessException {
+		RowMeta rowMeta = new RowMeta();
+		rowMeta.addField("name", DataType.STRING);
+		rowMeta.addField("age", DataType.INTEGER);
+		rowMeta.addField("number", DataType.LONG);
+		rowMeta.addField("character", DataType.CHARACTER);
 		
+		Person person = new Person("akshay", 1234, 9890712L, 'a');
+		
+		ByteLength length = new ByteLength();
+		
+		int le = length.getByteLength(rowMeta,person);
+		
+		System.out.println("ByteLength is : "+le);
+		
+		Class personClass = person.getClass();
+		for (FieldInfo fieldInfo : rowMeta.getFieldInfoList())
+		{
+			switch (fieldInfo.getDataType())
+			{
+				case STRING:
+					System.out.println(fieldInfo.getName() +" "+ fieldInfo.getDataType() +" "+ personClass.getField(fieldInfo.getName()).get(person));
+					break;
+				case INTEGER:
+					System.out.println(fieldInfo.getName() +" "+ fieldInfo.getDataType() +" "+ personClass.getField(fieldInfo.getName()).get(person));
+					break;
+				case CHARACTER:
+					System.out.println(fieldInfo.getName() +" "+ fieldInfo.getDataType() +" "+ personClass.getField(fieldInfo.getName()).get(person));
+					break;
+				case LONG:
+					System.out.println(fieldInfo.getName() +" "+ fieldInfo.getDataType() +" "+ personClass.getField(fieldInfo.getName()).get(person));
+					break;
+			}
+		}
+	}
+	
+	@Test
+	public void testEncoder() throws NoSuchFieldException, IllegalAccessException {
+		RowMeta rowMeta = new RowMeta();
+		rowMeta.addField("name", DataType.STRING);
+		rowMeta.addField("number", DataType.LONG);
+		
+		Person person = new Person("akshay", 1234, 9890712L, 'a');
+		
+		ByteLength length = new ByteLength();
+		int size = length.getByteLength(rowMeta, person);
+		Row row = new Row();
+		row.dataBytes = new byte[size];
+		
+		PojoBasedCoder coder = new PojoBasedCoder();
+		row = coder.encoder(rowMeta, person);
+		
+		System.out.println(row.getDataBytes());
 	}
 }

@@ -21,17 +21,9 @@ public class FieldInfo {
 		this.dataType = dataType;
 	}
 	
-	public boolean isNull(Object o) {
-		if (o == null) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-	
 	@Override
 	public String toString() {
-		return "RowMeta{" +
+		return "FieldInfo{" +
 				"name='" + name + '\'' +
 				", dataType=" + dataType +
 				'}';

@@ -1,13 +1,7 @@
 package com.ait.apex.row;
 
-public class Coder {
-
-	public void encoder(RowMeta rowMeta, Object o)
-	{
-		
-	}
-	public void decoder(RowMeta rowMeta, Row row)
-	{
-		
-	}
+public interface Coder {
+	Row encoder(RowMeta rowMeta, Object o) throws NoSuchFieldException, IllegalAccessException;
+	DataType decoder(RowMeta rowMeta, Row row);
 }
+                                    
