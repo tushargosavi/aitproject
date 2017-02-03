@@ -15,7 +15,11 @@ public class MetaTest_2 {
 		public int age;
 		public long number;
 		public char character;
-		
+
+		public Person()
+		{
+		}
+
 		public Person(String name, int age, long number, char character) {
 			this.name = name;
 			this.age= age;
@@ -132,6 +136,9 @@ public class MetaTest_2 {
 		row = enCoder.encoder(rowMeta, person);
 		System.out.println(Arrays.toString(row.getDataBytes()));
 
-		System.out.println(Platform.getString(row.dataBytes, 0, rev_varoffset));
+		Person person1 = new Person();
+
+		person1 = (Person)enCoder.decoder(rowMeta, row);
+		System.out.println(person1.toString());
 	}
 }

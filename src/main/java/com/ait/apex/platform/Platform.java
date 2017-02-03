@@ -143,15 +143,16 @@ public final class Platform
     }
   }
 
-  public static String getString(Object object, long offset, int rev_varoffset)
+  public static String getString(Object object, long offset)
   {
     StringBuilder stringBuilder = new StringBuilder("");
+    int varoffset = getInt(object, offset);
     offset += 1;
 
-    int len = Platform.getInt(object, Platform.INT_ARRAY_OFFSET + offset);
+    int len = getInt(object, offset);
     for(int i=0;i<len;i++)
     {
-      stringBuilder.append((char)Platform.getByte(object, Platform.INT_ARRAY_OFFSET + rev_varoffset + i));
+      stringBuilder.append((char)getByte(object, varoffset + i));
     }
 
     return stringBuilder.toString();

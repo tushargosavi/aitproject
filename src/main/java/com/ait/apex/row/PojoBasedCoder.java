@@ -4,12 +4,13 @@ package com.ait.apex.row;
 import com.ait.apex.platform.Platform;
 
 public class PojoBasedCoder implements Coder{
-	
+
+	ByteLength length = new ByteLength();
+
 	@Override
 	public Row encoder(RowMeta rowMeta, Object o) throws NoSuchFieldException, IllegalAccessException {
 		Row row = new Row();
 		long offset = 0;
-		ByteLength length = new ByteLength();
 		int varoffset = length.getVarOffset(rowMeta);
 		int size = length.getByteLength(rowMeta, o);
 		row.dataBytes = new byte[size];
@@ -45,7 +46,39 @@ public class PojoBasedCoder implements Coder{
 	
 	
 	@Override
-	public Object decoder(RowMeta rowMeta, Row row) {
+	public Object decoder(RowMeta rowMeta, Row row) throws NoSuchFieldException, IllegalAccessException
+	{
+		Object object = null;
+
+		int offset = 0;
+
+		for(FieldInfo fieldInfo : rowMeta.getFieldInfoList())
+		{
+			switch (fieldInfo.getDataType())
+			{
+				case STRING:
+					String strVal = Platform.getString(row.dataBytes, Platform.INT_ARRAY_OFFSET + offset);
+					object.getClass().getField(fieldInfo.getName()).set(object, strVal);
+					offset += 4;
+					break;
+
+				case INTEGER:
+					int intVal = Platform.getInt(row.dataBytes, Platform.INT_ARRAY_OFFSET + offset);
+					object.getClass().getField(fieldInfo.getName()).set(object, intVal);
+					offset += 4;
+					break;
+
+				case LONG:
+					long longVal = Platform.getLong(row.dataBytes, Platform.LONG_ARRAY_OFFSET + offset);
+					object.getClass().getField(fieldInfo.getName()).set(object, longVal);
+					offset += 8;
+					break;
+
+				case CHARACTER:
+					break;
+			}
+		}
+
 		return null;
 	}
 }

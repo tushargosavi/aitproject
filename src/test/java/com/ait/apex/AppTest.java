@@ -23,6 +23,8 @@ public class AppTest
     }
     System.out.println(Arrays.toString(bytestr));
 
+    System.out.println(Platform.getInt(bytestr, Platform.INT_ARRAY_OFFSET));
+
     StringBuilder stringBuilder = new StringBuilder("");
     String s = " ";
     for(int i=0;i<bytestr.length;i++)
@@ -31,5 +33,16 @@ public class AppTest
     }
     System.out.println(stringBuilder);
 
+  }
+
+  @Test
+  public void intTest()
+  {
+    byte[] byteInt = new byte[1];
+
+    Platform.putInt(byteInt, Platform.INT_ARRAY_OFFSET, 7);
+    System.out.println(Arrays.toString(byteInt));
+
+    System.out.println(Platform.getInt(byteInt, Platform.INT_ARRAY_OFFSET));
   }
 }
