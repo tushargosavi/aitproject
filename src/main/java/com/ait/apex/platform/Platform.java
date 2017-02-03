@@ -128,18 +128,18 @@ public final class Platform
     _UNSAFE.putDouble(object, offset, value);
   }
 
-  public static void putString(Object object,long offset, int varoffset, String value)
+  public static void putString(Object object, long offset, int varoffset, String value)
   {
-    putInt(object, Platform.INT_ARRAY_OFFSET + offset, varoffset);
+    putInt(object, offset, varoffset);
     offset += 1;
 
-    putInt(object, Platform.INT_ARRAY_OFFSET + offset, value.length());
+    putInt(object, offset, value.length());
 
     byte[] bytestr = value.getBytes();
 
     for(int i=0;i<bytestr.length;i++)
     {
-      Platform.putByte(bytestr, Platform.BYTE_ARRAY_OFFSET + i, bytestr[i]);
+      Platform.putByte(object, Platform.BYTE_ARRAY_OFFSET + varoffset + i, bytestr[i]);
     }
   }
 

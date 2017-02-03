@@ -10,7 +10,7 @@ public class PojoBasedCoder implements Coder{
 		Row row = new Row();
 		long offset = 0;
 		ByteLength length = new ByteLength();
-		
+		int varoffset = length.getVarOffset(rowMeta);
 		int size = length.getByteLength(rowMeta, o);
 		row.dataBytes = new byte[size];
 		
@@ -19,18 +19,20 @@ public class PojoBasedCoder implements Coder{
 			switch (fieldInfo.getDataType())
 			{
 				case STRING:
-					//String strValue = (String) o.getClass().getField(fieldInfo.getName()).get(o);
+					String str = (String) o.getClass().getField(fieldInfo.getName()).get(o);
+					Platform.putString(row.dataBytes, Platform.INT_ARRAY_OFFSET + offset, varoffset, str);
+					offset += 4;
 					break;
 				
 				case INTEGER:
 					int intVal = (int) o.getClass().getField(fieldInfo.getName()).get(o);
-					Platform.putInt(row.dataBytes, offset, intVal);
+					Platform.putInt(row.dataBytes, Platform.INT_ARRAY_OFFSET + offset, intVal);
 					offset += 4;
 					break;
 					
 				case LONG:
 					long longVal = (long) o.getClass().getField(fieldInfo.getName()).get(o);
-					Platform.putLong(row.dataBytes, offset, longVal);
+					Platform.putLong(row.dataBytes, Platform.LONG_ARRAY_OFFSET + offset, longVal);
 					offset += 8;
 					break;
 					
@@ -43,7 +45,7 @@ public class PojoBasedCoder implements Coder{
 	
 	
 	@Override
-	public DataType decoder(RowMeta rowMeta, Row row) {
+	public Object decoder(RowMeta rowMeta, Row row) {
 		return null;
 	}
 }

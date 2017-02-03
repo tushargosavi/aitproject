@@ -1,38 +1,35 @@
 package com.ait.apex;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import java.util.Arrays;
+
+import org.junit.Test;
+
+import com.ait.apex.platform.Platform;
 
 /**
  * Unit test for simple App.
  */
 public class AppTest
-  extends TestCase
 {
-  /**
-   * Create the test case
-   *
-   * @param testName name of the test case
-   */
-  public AppTest(String testName)
+  @Test
+  public void stringTest()
   {
-    super(testName);
-  }
+    String str = "akshay";
+    byte[] bytestr = str.getBytes();
 
-  /**
-   * @return the suite of tests being tested
-   */
-  public static Test suite()
-  {
-    return new TestSuite(AppTest.class);
-  }
+    for(int i=0;i<bytestr.length;i++)
+    {
+      Platform.putByte(bytestr, Platform.BYTE_ARRAY_OFFSET + i, bytestr[i]);
+    }
+    System.out.println(Arrays.toString(bytestr));
 
-  /**
-   * Rigourous Test :-)
-   */
-  public void testApp()
-  {
-    assertTrue(true);
+    StringBuilder stringBuilder = new StringBuilder("");
+    String s = " ";
+    for(int i=0;i<bytestr.length;i++)
+    {
+      stringBuilder.append((char)Platform.getByte(bytestr, Platform.BYTE_ARRAY_OFFSET + i));
+    }
+    System.out.println(stringBuilder);
+
   }
 }

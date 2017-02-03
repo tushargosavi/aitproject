@@ -13,7 +13,7 @@ public class PlatformTest
 	{
 		byte[] data = new byte[25];
 		System.out.println(Arrays.toString(data));
-		Platform.putLong(data,Platform.LONG_ARRAY_OFFSET, Long.MAX_VALUE);
+		Platform.putLong(data,Platform.LONG_ARRAY_OFFSET, 9890712L);
 		System.out.println(Arrays.toString(data));
 		Platform.putDouble(data, Platform.DOUBLE_ARRAY_OFFSET + 8, Double.MAX_VALUE);
 		System.out.println(Arrays.toString(data));

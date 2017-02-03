@@ -1,5 +1,8 @@
 package com.ait.apex;
 
+import java.util.Arrays;
+
+import com.ait.apex.platform.Platform;
 import com.ait.apex.row.*;
 import org.junit.Test;
 
@@ -83,19 +86,52 @@ public class MetaTest_2 {
 	@Test
 	public void testEncoder() throws NoSuchFieldException, IllegalAccessException {
 		RowMeta rowMeta = new RowMeta();
-		rowMeta.addField("name", DataType.STRING);
+		rowMeta.addField("age", DataType.INTEGER);
 		rowMeta.addField("number", DataType.LONG);
 		
 		Person person = new Person("akshay", 1234, 9890712L, 'a');
 		
 		ByteLength length = new ByteLength();
 		int size = length.getByteLength(rowMeta, person);
+		System.out.println(size);
 		Row row = new Row();
 		row.dataBytes = new byte[size];
 		
 		PojoBasedCoder coder = new PojoBasedCoder();
 		row = coder.encoder(rowMeta, person);
-		
-		System.out.println(row.getDataBytes());
+
+		System.out.println(row.getDataBytes().length);
+
+		System.out.println(Arrays.toString(row.getDataBytes()));
+	}
+
+	@Test
+	public void encodingTest() throws NoSuchFieldException, IllegalAccessException
+	{
+		RowMeta rowMeta = new RowMeta();
+
+		rowMeta.addField("name", DataType.STRING);
+		rowMeta.addField("age", DataType.INTEGER);
+		rowMeta.addField("number", DataType.LONG);
+
+		Person person = new Person("akshay", 1234, 9890712L, 'a');
+
+		ByteLength length = new ByteLength();
+		int len = length.getByteLength(rowMeta, person);
+		int varoffset = length.getVarOffset(rowMeta);
+		int rev_varoffset = length.getVarOffset(rowMeta);
+
+		System.out.println(len);
+		System.out.println(varoffset + " 	" + rev_varoffset);
+
+		Row row = new Row();
+		row.dataBytes = new byte[len];
+
+		PojoBasedCoder enCoder = new PojoBasedCoder();
+
+		row = enCoder.encoder(rowMeta, person);
+		System.out.println(Arrays.toString(row.getDataBytes()));
+
+		System.out.println(Platform.getString(row.dataBytes, 0, rev_varoffset));
 	}
 }

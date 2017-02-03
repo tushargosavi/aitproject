@@ -36,4 +36,37 @@ public class ByteLength
 		}
 		return len;
 	}
+
+	public int getVarOffset(RowMeta rowMeta)
+	{
+		int len = 0;
+		for(FieldInfo fieldInfo : rowMeta.getFieldInfoList())
+		{
+			switch (fieldInfo.getDataType())
+			{
+				case BOOLEAN :
+					len += 1;
+					break;
+				case INTEGER:
+					len += 4;
+					break;
+				case DOUBLE:
+					len +=8;
+					break;
+				case FLOAT:
+					len +=4;
+					break;
+				case LONG:
+					len +=8;
+					break;
+				case CHARACTER:
+					len += 2;
+					break;
+				case STRING:
+					len += 4;
+					len += 1;
+			}
+		}
+		return len;
+	}
 }
