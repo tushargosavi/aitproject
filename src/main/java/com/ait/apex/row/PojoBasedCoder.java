@@ -5,7 +5,7 @@ import com.ait.apex.platform.Platform;
 
 public class PojoBasedCoder implements Coder{
 	
-	StringFunctions stringFunctions = new StringFunctions();
+	VariableFunctions variableFunctions = new VariableFunctions();
 	ByteLength length = new ByteLength();
 
 	@Override
@@ -20,7 +20,7 @@ public class PojoBasedCoder implements Coder{
 			switch (fieldInfo.getDataType()) {
 				case STRING:
 					String str = (String) o.getClass().getField(fieldInfo.getName()).get(o);
-					stringFunctions.putString(row.dataBytes, Platform.INT_ARRAY_OFFSET + offset, varoffset, str);
+					variableFunctions.putString(row.dataBytes, Platform.INT_ARRAY_OFFSET + offset, varoffset, str);
 					offset += 8;
 					break;
 				
@@ -37,6 +37,9 @@ public class PojoBasedCoder implements Coder{
 					break;
 				
 				case CHARACTER:
+					char charVal = (char) o.getClass().getField(fieldInfo.getName()).get(o);
+					variableFunctions.putChar(row.dataBytes, Platform.BYTE_ARRAY_OFFSET + offset, charVal);
+					offset += 2;
 					break;
 				
 				case DOUBLE:
@@ -71,7 +74,7 @@ public class PojoBasedCoder implements Coder{
 			switch (fieldInfo.getDataType())
 			{
 				case STRING:
-					String strVal = stringFunctions.getString(row.dataBytes, Platform.INT_ARRAY_OFFSET + offset);
+					String strVal = variableFunctions.getString(row.dataBytes, Platform.INT_ARRAY_OFFSET + offset);
 					object.getClass().getField(fieldInfo.getName()).set(object, strVal);
 					offset += 8;
 					break;
@@ -89,6 +92,9 @@ public class PojoBasedCoder implements Coder{
 					break;
 
 				case CHARACTER:
+					char charVal = variableFunctions.getChar(row.dataBytes, Platform.BYTE_ARRAY_OFFSET + offset);
+					object.getClass().getField(fieldInfo.getName()).set(object, charVal);
+					offset += 2;
 					break;
 				
 				case DOUBLE:
