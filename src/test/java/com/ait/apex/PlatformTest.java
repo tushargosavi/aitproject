@@ -24,6 +24,7 @@ public class PlatformTest
 		System.out.println(Platform.getDouble(data, Platform.DOUBLE_ARRAY_OFFSET + 8));
 		System.out.println(Double.MAX_VALUE);
 		System.out.println(Platform.getInt(data, Platform.INT_ARRAY_OFFSET + 16));
+		System.out.println(Character.MAX_VALUE);
 	}
 	
 	/*

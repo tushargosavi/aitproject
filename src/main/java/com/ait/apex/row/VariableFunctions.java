@@ -2,7 +2,7 @@ package com.ait.apex.row;
 
 import com.ait.apex.platform.Platform;
 
-public class StringFunctions
+public class VariableFunctions
 {
 	public static void putString(Object object, long offset, int varoffset, String value)
 	{
@@ -32,4 +32,17 @@ public class StringFunctions
 		
 		return stringBuilder.toString();
 	}
+	
+	public static void putChar(Object object, long offset, char value)
+	{
+		byte charByte = (byte) value;
+		Platform.putByte(object, offset, charByte);
+	}
+	
+	public static char getChar(Object object, long offset)
+	{
+		char value = (char) Platform.getByte(object, offset);
+		return value;
+	}
+
 }

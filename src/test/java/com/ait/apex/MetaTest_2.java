@@ -103,6 +103,7 @@ public class MetaTest_2 {
 		rowMeta.addField("name", DataType.STRING);
 		rowMeta.addField("age", DataType.INTEGER);
 		rowMeta.addField("number", DataType.LONG);
+		rowMeta.addField("character", DataType.CHARACTER);
 		
 		Person person = new Person("akshay", 1234, 9890712L, 'a');
 		
@@ -128,6 +129,8 @@ public class MetaTest_2 {
 		rowMeta.addField("name", DataType.STRING);
 		rowMeta.addField("age", DataType.INTEGER);
 		rowMeta.addField("number", DataType.LONG);
+		rowMeta.addField("character", DataType.CHARACTER);
+		
 
 		Person person = new Person("akshay", 1234, 9890712L, 'a');
 
@@ -151,5 +154,14 @@ public class MetaTest_2 {
 
 		person1 = (Person)enCoder.decoder(rowMeta, row, person1);
 		System.out.println(person1.toString());
+	}
+	
+	@Test
+	public void encodeChar()
+	{
+		char ch = 'a';
+		byte chByte = (byte) ch;
+		
+		System.out.println(chByte);
 	}
 }
