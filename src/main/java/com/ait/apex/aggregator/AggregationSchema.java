@@ -5,6 +5,6 @@ import com.ait.apex.row.RowMeta;
 public class AggregationSchema {
 	
 	int id;
-	RowMeta rowSchema;
+	RowMeta keySchema;
 	RowMeta valueSchema;
 }

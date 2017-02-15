@@ -1,6 +1,5 @@
 package com.ait.apex.row;
 
-
 public class FieldInfo {
 	String name;
 	DataType dataType;
