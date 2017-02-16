@@ -11,10 +11,11 @@ public class AggregationHelper
   public AggregationSchema createAggregationSchema(RowMeta originalSchema, List<AggregationMetrics> aggregationMetrics)
   {
     AggregationSchema schema = new AggregationSchema();
-    for (AggregationMetrics metrics : aggregationMetrics) {
-      switch (metrics.getAggTypes()) {
+    for (AggregationMetrics aggregationMeta : aggregationMetrics) {
+      
+      switch (aggregationMeta.getAggTypes()) {
         case COUNT:
-          for (String key : metrics.getKeys()) {
+          for (String key : aggregationMeta.getKeys()) {
             if (originalSchema.fieldInfoList.contains(key)) {
               schema.keySchema.addField(key, originalSchema.getDataType(key));
             }
@@ -23,7 +24,7 @@ public class AggregationHelper
           break;
 
         case SUM:
-          for (String key : metrics.getKeys()) {
+          for (String key : aggregationMeta.getKeys()) {
             if (originalSchema.fieldInfoList.contains(key)) {
               schema.keySchema.addField(key, originalSchema.getDataType(key));
             }
@@ -32,7 +33,7 @@ public class AggregationHelper
           break;
 
         case MIN:
-          for (String key : metrics.getKeys()) {
+          for (String key : aggregationMeta.getKeys()) {
             if (originalSchema.fieldInfoList.contains(key)) {
               schema.keySchema.addField(key, originalSchema.getDataType(key));
             }
@@ -41,7 +42,7 @@ public class AggregationHelper
           break;
 
         case MAX:
-          for (String key : metrics.getKeys()) {
+          for (String key : aggregationMeta.getKeys()) {
             if (originalSchema.fieldInfoList.contains(key)) {
               schema.keySchema.addField(key, originalSchema.getDataType(key));
             }

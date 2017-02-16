@@ -6,7 +6,12 @@ public class AggregationMetrics
 {
 	String[] keys;
 	AggregationTypes aggTypes;
-
+	
+	public AggregationMetrics(String[] keys, AggregationTypes aggTypes) {
+		this.keys = keys;
+		this.aggTypes = aggTypes;
+	}
+	
 	public String[] getKeys()
 	{
 		return keys;

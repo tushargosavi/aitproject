@@ -6,9 +6,6 @@ import com.ait.apex.platform.Platform;
 import com.ait.apex.row.*;
 import org.junit.Test;
 
-/**
- * Created by Akshay on 1/27/2017.
- */
 public class MetaTest_2 {
 	public class Person {
 		public String name;
