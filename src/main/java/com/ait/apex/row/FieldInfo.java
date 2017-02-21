@@ -1,8 +1,8 @@
 package com.ait.apex.row;
 
 public class FieldInfo {
-	String name;
-	DataType dataType;
+	public String name;
+	public DataType dataType;
 	
 	public String getName() {
 		return name;

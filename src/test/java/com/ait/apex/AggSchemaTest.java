@@ -1,20 +1,17 @@
 package com.ait.apex;
 
-import com.ait.apex.aggregator.AggregationHelper;
-import com.ait.apex.aggregator.AggregationMetrics;
-import com.ait.apex.aggregator.AggregationTypes;
-import com.ait.apex.row.DataType;
-import com.ait.apex.row.RowMeta;
+import com.ait.apex.aggregator.*;
+import com.ait.apex.row.*;
 import org.junit.Test;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AggSchemaTest {
 	@Test
 	
-	public void aggTest()
-	{
+	public void aggTest() throws NoSuchFieldException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
 		RowMeta rowMeta = new RowMeta();
 		rowMeta.addField("name", DataType.STRING);
 		rowMeta.addField("age", DataType.INTEGER);
@@ -28,6 +25,8 @@ public class AggSchemaTest {
 		
 		
 		AggregationHelper aggregationHelper = new AggregationHelper();
-		aggregationHelper.createAggregationSchema(rowMeta, metricsList);
+		AggregationSchema aggregationSchema = aggregationHelper.createAggregationSchema(rowMeta, metricsList);
+		
+		System.out.println(aggregationSchema.toString());
 	}
 }

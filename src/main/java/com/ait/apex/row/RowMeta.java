@@ -31,4 +31,11 @@ public class RowMeta {
 	{
 		return fieldInfoList;
 	}
+	
+	@Override
+	public String toString() {
+		return "RowMeta{" +
+				"fieldInfoList=" + fieldInfoList +
+				'}';
+	}
 }
