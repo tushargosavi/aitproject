@@ -11,7 +11,7 @@ import java.util.List;
 public class AggSchemaTest {
 	@Test
 	
-	public void aggTest() throws NoSuchFieldException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
+	public void aggTestWithOne() throws NoSuchFieldException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
 		RowMeta rowMeta = new RowMeta();
 		rowMeta.addField("name", DataType.STRING);
 		rowMeta.addField("age", DataType.INTEGER);
@@ -28,5 +28,11 @@ public class AggSchemaTest {
 		AggregationSchema aggregationSchema = aggregationHelper.createAggregationSchema(rowMeta, metricsList);
 		
 		System.out.println(aggregationSchema.toString());
+	}
+	
+	@Test
+	public void aggTestWithTwo()
+	{
+		
 	}
 }
