@@ -1,8 +1,6 @@
 package com.ait.apex.memory;
 
-
- import com.ait.apex.platform.Platform;
- import org.jetbrains.annotations.Nullable;
+import com.ait.apex.platform.Platform;
 
 /**
  * A consecutive block of memory, starting at a {@link MemoryLocation} with a fixed size.
@@ -18,7 +16,7 @@ public class MemoryBlock extends MemoryLocation {
      */
     public int pageNumber = -1;
 
-    public MemoryBlock(@Nullable Object obj, long offset, long length) {
+    public MemoryBlock(Object obj, long offset, long length) {
         super(obj, offset);
         this.length = length;
     }
