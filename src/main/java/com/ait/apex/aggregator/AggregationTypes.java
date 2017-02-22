@@ -1,9 +1,11 @@
 package com.ait.apex.aggregator;
 
-public enum AggreagationTypes {
-	
+public enum AggregationTypes
+{
+	GROUP_BY,
 	SUM,
 	COUNT,
 	MIN,
-	MAX
+	MAX,
+	AVG
 }
