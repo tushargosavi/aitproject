@@ -15,21 +15,40 @@ public class RowMeta {
 		fieldInfoList.add(fieldInfo);
 	}
 	
-	public void removeField(String name)
-	{
-		int index = fieldInfoList.indexOf(name);
-		fieldInfoList.remove(index);
+	public boolean isPresent(RowMeta rowMeta, String key) throws NoSuchFieldException, IllegalAccessException {
+		boolean flag = false;
+		for (FieldInfo fieldInfo : rowMeta.getFieldInfoList()) {
+			if(key.equals(fieldInfo.getName()))
+			{
+				flag = true;
+			}
+		}
+		return flag;
 	}
-
-	public DataType getDataType(String key)
-	{
-		int index = fieldInfoList.indexOf(key);
-		FieldInfo fieldInfo = fieldInfoList.get(index);
-		return fieldInfo.getDataType();
+	
+	public RowMeta removeField(RowMeta rowMeta ,String name) {
+		for (FieldInfo fieldInfo : rowMeta.getFieldInfoList())
+		{
+			if(name.equals(fieldInfo.getName()))
+			{
+				rowMeta.fieldInfoList.remove(fieldInfo);
+				break;
+			}
+		}
+		return rowMeta;
 	}
-
-	public List<FieldInfo> getFieldInfoList()
-	{
+	
+	public DataType getDataType(RowMeta rowMeta, String key) {
+		DataType dataType = null;
+		for (FieldInfo fieldInfo : rowMeta.getFieldInfoList()) {
+			if (key.equals(fieldInfo.getName())) {
+				dataType = fieldInfo.getDataType();
+			}
+		}
+		return dataType;
+	}
+	
+	public List<FieldInfo> getFieldInfoList() {
 		return fieldInfoList;
 	}
 	
