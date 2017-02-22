@@ -7,7 +7,6 @@ package com.ait.apex.memory;
 public class MemoryLocation {
 
     Object obj;
-
     long offset;
 
     public MemoryLocation(Object obj, long offset) {
