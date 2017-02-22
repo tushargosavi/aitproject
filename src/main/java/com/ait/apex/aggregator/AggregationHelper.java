@@ -3,15 +3,19 @@ package com.ait.apex.aggregator;
 import com.ait.apex.row.DataType;
 import com.ait.apex.row.RowMeta;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AggregationHelper {
 	
-	public AggregationSchema createAggregationSchema(RowMeta originalSchema, List<AggregationMetrics> aggregationMetrics) throws NoSuchFieldException, IllegalAccessException {
+	public List<AggregationSchema> createAggregationSchema(RowMeta originalSchema, List<AggregationMetrics> aggregationMetrics) throws NoSuchFieldException, IllegalAccessException {
 		
-		AggregationSchema schema = new AggregationSchema();
+		List<AggregationSchema> schemaList = new ArrayList<>();
 		
 		for (AggregationMetrics aggregationMeta : aggregationMetrics) {
+			
+			AggregationSchema schema = new AggregationSchema();
+			
 			for (String key : aggregationMeta.getKeys()) {
 				if (originalSchema.isPresent(originalSchema, key)) {
 					schema.keySchema.addField(key, originalSchema.getDataType(originalSchema, key));
@@ -34,7 +38,8 @@ public class AggregationHelper {
 					schema.valueSchema.addField("max", DataType.LONG);
 					break;
 			}
+			schemaList.add(schema);
 		}
-		return schema;
+		return schemaList;
 	}
 }
