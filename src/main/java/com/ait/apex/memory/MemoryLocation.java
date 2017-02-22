@@ -1,19 +1,16 @@
 package com.ait.apex.memory;
 
-import org.jetbrains.annotations.Nullable;
-
 /**
  * A memory location. Tracked either by a memory address (with off-heap allocation),
  * or by an offset from a JVM object (in-heap allocation).
  */
 public class MemoryLocation {
 
-    @Nullable
     Object obj;
 
     long offset;
 
-    public MemoryLocation(@Nullable Object obj, long offset) {
+    public MemoryLocation(Object obj, long offset) {
         this.obj = obj;
         this.offset = offset;
     }
