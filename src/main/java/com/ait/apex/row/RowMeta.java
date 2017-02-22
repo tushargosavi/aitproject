@@ -1,11 +1,14 @@
 package com.ait.apex.row;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class RowMeta {
 	public List<FieldInfo> fieldInfoList = new ArrayList<>();
-	
+	private Map<String, DataType> nameToTypeMap = new HashMap<>();
+
 	public void addField(String name, DataType dataType) {
 
 		FieldInfo fieldInfo = new FieldInfo();
@@ -13,39 +16,26 @@ public class RowMeta {
 		fieldInfo.setDataType(dataType);
 		
 		fieldInfoList.add(fieldInfo);
+    nameToTypeMap.put(name, dataType);
 	}
 	
-	public boolean isPresent(RowMeta rowMeta, String key) throws NoSuchFieldException, IllegalAccessException {
-		boolean flag = false;
-		for (FieldInfo fieldInfo : rowMeta.getFieldInfoList()) {
-			if(key.equals(fieldInfo.getName()))
-			{
-				flag = true;
-			}
-		}
-		return flag;
+	public boolean isKeyPresent(String key) {
+		return nameToTypeMap.containsKey(key);
 	}
-	
-	public RowMeta removeField(RowMeta rowMeta ,String name) {
-		for (FieldInfo fieldInfo : rowMeta.getFieldInfoList())
-		{
-			if(name.equals(fieldInfo.getName()))
-			{
-				rowMeta.fieldInfoList.remove(fieldInfo);
-				break;
-			}
-		}
-		return rowMeta;
-	}
-	
-	public DataType getDataType(RowMeta rowMeta, String key) {
-		DataType dataType = null;
-		for (FieldInfo fieldInfo : rowMeta.getFieldInfoList()) {
-			if (key.equals(fieldInfo.getName())) {
-				dataType = fieldInfo.getDataType();
-			}
-		}
-		return dataType;
+
+	public RowMeta subset(String[] keys)
+  {
+    RowMeta meta = new RowMeta();
+    for (String key : keys) {
+      if (isKeyPresent(key)) {
+        meta.addField(key, nameToTypeMap.get(key));
+      }
+    }
+    return meta;
+  }
+
+	public DataType getDataType(String key) {
+		return nameToTypeMap.get(key);
 	}
 	
 	public List<FieldInfo> getFieldInfoList() {

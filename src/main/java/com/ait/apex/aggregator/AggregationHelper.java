@@ -15,12 +15,8 @@ public class AggregationHelper {
 		for (AggregationMetrics aggregationMeta : aggregationMetrics) {
 			
 			AggregationSchema schema = new AggregationSchema();
-			
-			for (String key : aggregationMeta.getKeys()) {
-				if (originalSchema.isPresent(originalSchema, key)) {
-					schema.keySchema.addField(key, originalSchema.getDataType(originalSchema, key));
-				}
-			}
+
+			schema.keySchema = originalSchema.subset(aggregationMeta.getKeys());
 			switch (aggregationMeta.getAggTypes()) {
 				case COUNT:
 					schema.valueSchema.addField("count", DataType.LONG);

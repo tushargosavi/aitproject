@@ -4,6 +4,8 @@ import com.ait.apex.aggregator.AggregationSchema;
 import com.ait.apex.row.DataType;
 import com.ait.apex.row.FieldInfo;
 import com.ait.apex.row.RowMeta;
+
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.lang.reflect.InvocationTargetException;
@@ -40,7 +42,6 @@ public class ReflectionTest {
 		}
 		
 		System.out.println("------------------------------------");
-		rowMeta.removeField(rowMeta, fieldName);
 		for (FieldInfo fieldInfo : rowMeta.getFieldInfoList()) {
 			System.out.println(fieldInfo.toString());
 		}
@@ -54,6 +55,6 @@ public class ReflectionTest {
 		rowMeta.addField("number", DataType.LONG);
 		rowMeta.addField("character", DataType.CHARACTER);
 		
-		System.out.println(rowMeta.isPresent(rowMeta, "potato"));
+		Assert.assertTrue(rowMeta.isKeyPresent("age"));
 	}
 }
