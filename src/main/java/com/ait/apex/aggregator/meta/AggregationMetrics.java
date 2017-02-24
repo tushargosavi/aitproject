@@ -1,4 +1,4 @@
-package com.ait.apex.aggregator;
+package com.ait.apex.aggregator.meta;
 
 import java.util.Arrays;
 

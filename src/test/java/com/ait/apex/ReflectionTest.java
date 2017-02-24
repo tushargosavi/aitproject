@@ -1,6 +1,6 @@
 package com.ait.apex;
 
-import com.ait.apex.aggregator.AggregationSchema;
+import com.ait.apex.aggregator.meta.AggregationSchema;
 import com.ait.apex.row.DataType;
 import com.ait.apex.row.FieldInfo;
 import com.ait.apex.row.RowMeta;
