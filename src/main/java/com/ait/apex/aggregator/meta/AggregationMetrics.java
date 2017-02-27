@@ -5,10 +5,12 @@ import java.util.Arrays;
 public class AggregationMetrics
 {
 	String[] keys;
+	String[] vals;
 	AggregationTypes aggTypes;
 	
-	public AggregationMetrics(String[] keys, AggregationTypes aggTypes) {
+	public AggregationMetrics(String[] keys, String[] vals, AggregationTypes aggTypes) {
 		this.keys = keys;
+		this.vals = vals;
 		this.aggTypes = aggTypes;
 	}
 	
@@ -21,7 +23,11 @@ public class AggregationMetrics
 	{
 		this.keys = keys;
 	}
-
+	
+	public String[] getVals() {	return vals; }
+	
+	public void setVals(String[] vals) { this.vals = vals;	}
+	
 	public AggregationTypes getAggTypes()
 	{
 		return aggTypes;
@@ -31,13 +37,13 @@ public class AggregationMetrics
 	{
 		this.aggTypes = aggTypes;
 	}
-
+	
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return "AggregationMetrics{" +
-			"keys=" + Arrays.toString(keys) +
-			", aggTypes=" + aggTypes +
-			'}';
+				"keys=" + Arrays.toString(keys) +
+				", vals=" + Arrays.toString(vals) +
+				", aggTypes=" + aggTypes +
+				'}';
 	}
 }

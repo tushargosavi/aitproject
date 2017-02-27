@@ -19,19 +19,19 @@ public class AggregationHelper {
 			schema.keySchema = originalSchema.subset(aggregationMeta.getKeys());
 			switch (aggregationMeta.getAggTypes()) {
 				case COUNT:
-					schema.valueSchema.addField("count", DataType.LONG);
+					schema.valueSchema = originalSchema.subset(aggregationMeta.getVals());
 					break;
 				
 				case SUM:
-					schema.valueSchema.addField("sum", DataType.LONG);
+					schema.valueSchema = originalSchema.subset(aggregationMeta.getVals());
 					break;
 				
 				case MIN:
-					schema.valueSchema.addField("min", DataType.LONG);
+					schema.valueSchema = originalSchema.subset(aggregationMeta.getVals());
 					break;
 				
 				case MAX:
-					schema.valueSchema.addField("max", DataType.LONG);
+					schema.valueSchema = originalSchema.subset(aggregationMeta.getVals());
 					break;
 			}
 			schemaList.add(schema);

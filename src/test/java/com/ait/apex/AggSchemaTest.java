@@ -22,7 +22,8 @@ public class AggSchemaTest {
 		rowMeta.addField("character", DataType.CHARACTER);
 		
 		String[] keys = {"name","age"};
-		AggregationMetrics metrics = new AggregationMetrics(keys, AggregationTypes.COUNT);
+		String vals[] = {"number"};
+		AggregationMetrics metrics = new AggregationMetrics(keys, vals,  AggregationTypes.MAX);
 		List<AggregationMetrics> metricsList = new ArrayList<>();
 		metricsList.add(metrics);
 		
@@ -43,10 +44,11 @@ public class AggSchemaTest {
 		
 		List<AggregationMetrics> metricsList = new ArrayList<>();
 		String[] keys = {"number"};
+		String vals[] = {"cost"};
 		
-		metricsList.add(new AggregationMetrics(new String[]{"name"}, AggregationTypes.COUNT));
-		metricsList.add(new AggregationMetrics(new String[]{"name"}, AggregationTypes.MAX));
-		metricsList.add(new AggregationMetrics(new String[]{"name","age","number"}, AggregationTypes.MAX));
+		metricsList.add(new AggregationMetrics(new String[]{"name"}, vals, AggregationTypes.COUNT));
+		metricsList.add(new AggregationMetrics(new String[]{"name"}, vals,AggregationTypes.MAX));
+		metricsList.add(new AggregationMetrics(new String[]{"name","age","number"}, vals,AggregationTypes.MAX));
 		
 		AggregationHelper aggregationHelper = new AggregationHelper();
 		List<AggregationSchema> schemaList = aggregationHelper.createAggregationSchema(rowMeta, metricsList);
