@@ -27,7 +27,7 @@ public class VariableFunctions
 		
 		for(int i=0;i<len;i++)
 		{
-			stringBuilder.append((char) Platform.getByte(object, offset + varoffset + i));
+			stringBuilder.append((char) Platform.getByte(object, Platform.BYTE_ARRAY_OFFSET + varoffset + i));
 		}
 		
 		return stringBuilder.toString();

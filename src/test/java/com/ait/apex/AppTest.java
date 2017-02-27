@@ -2,6 +2,7 @@ package com.ait.apex;
 
 import java.util.Arrays;
 
+import com.ait.apex.AdInfoTest.AdInfo;
 import org.junit.Test;
 
 import com.ait.apex.platform.Platform;
@@ -45,4 +46,12 @@ public class AppTest
 
     System.out.println(Platform.getInt(byteInt, Platform.INT_ARRAY_OFFSET));
   }
+  
+  @Test
+  public void test()
+  {
+    AdInfo adInfo = new AdInfo("LA", null, "LA", 123,0L,false);
+    System.out.println(adInfo.toString());
+  }
+  
 }

@@ -20,8 +20,9 @@ public class PojoBasedCoder implements Coder{
 			switch (fieldInfo.getDataType()) {
 				case STRING:
 					String str = (String) o.getClass().getField(fieldInfo.getName()).get(o);
-					variableFunctions.putString(row.dataBytes, Platform.INT_ARRAY_OFFSET + offset, varoffset, str);
+ 					variableFunctions.putString(row.dataBytes, Platform.INT_ARRAY_OFFSET + offset, varoffset, str);
 					offset += 8;
+					varoffset +=  str.getBytes().length;
 					break;
 				
 				case INTEGER:
