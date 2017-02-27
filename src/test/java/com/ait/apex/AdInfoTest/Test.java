@@ -27,7 +27,7 @@ public class Test {
 		rowMeta.addField("clicks", DataType.BOOLEAN);
 		
 		
-		String path = "C:\\Users\\Akshay\\Documents\\InputFile.csv";
+		String path = "C:\\Users\\Akshay\\Documents\\InputFile.txt";
 		CSVReader csvReader = new CSVReader(new FileReader(path), ',');
 		
 		ByteLength length = new ByteLength();
