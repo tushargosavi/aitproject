@@ -16,14 +16,12 @@ public class RowValueFunctions {
 	
 	public long readLong(Row row, RowMeta rowMeta)
 	{
-		long val = Platform.getLong(row.dataBytes, Platform.LONG_ARRAY_OFFSET + readOffset);
-		readOffset += 8;
-		return val;
+		long longVal = Platform.getLong(row.dataBytes, Platform.LONG_ARRAY_OFFSET + readOffset);
+		return  longVal;
 	}
 	
 	public Row updateLong(Row row, RowMeta rowMeta, long longVal){
 		Platform.putLong(row.dataBytes, Platform.LONG_ARRAY_OFFSET + updateOffset, longVal);
-		updateOffset += 8;
 		return row;
 	}
 }

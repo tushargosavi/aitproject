@@ -27,7 +27,7 @@ public class Test {
 		rowMeta.addField("clicks", DataType.BOOLEAN);
 		
 		
-		String path = "C:\\Users\\Akshay\\Documents\\InputFile.txt";
+		String path = "C:\\Users\\Akshay\\Documents\\GitHub\\aitproject\\InputFile.txt";
 		CSVReader csvReader = new CSVReader(new FileReader(path), ',');
 		
 		ByteLength length = new ByteLength();
@@ -38,14 +38,14 @@ public class Test {
 		Map<Row, Row> resultMap = new HashMap<>();
 		
 		String keys[] = {"publisher"};
-		String vals[] = {"cost"};
+		String vals[] = {"impressions"};
 		List<AggregationMetrics> metricsList = new ArrayList<>();
 		metricsList.add(new AggregationMetrics(keys, vals, AggregationTypes.MAX));
 		
 		AggregationHelper helper = new AggregationHelper();
 		List<AggregationSchema> schemaList = helper.createAggregationSchema(rowMeta, metricsList);
 		Operations operations = new Operations();
-		
+//		EntryField entryField = null;
 		while((nextLine = csvReader.readNext()) != null)
 		{
 			AdInfo adInfo = new AdInfo(null, null, null, 0l, 0l, false);
@@ -72,12 +72,14 @@ public class Test {
 					valRow.dataBytes = new byte[valLen];
 					valRow = coder.encoder(schema.valueSchema, adInfo);
 					
-					byteMap.put(keyRow, valRow);
+//					entryField = new EntryField(keyRow, valRow);
 					
+//					resultMap = operations.operations(entryField, metricsList.get(0), schema, resultMap);
+					
+					byteMap.put(keyRow, valRow);
 					for(Map.Entry<Row, Row> entry : byteMap.entrySet())
 					{
-						resultMap = operations.operations(entry, metricsList.get(0), schemaList.get(0), resultMap);
-//			System.out.println(Arrays.toString(entry.getKey().getDataBytes()) +"    "+ Arrays.toString(entry.getValue().getDataBytes()) );
+						resultMap = operations.operations(entry, metricsList.get(0), schema, resultMap);
 					}
 				}
 			}
@@ -185,7 +187,8 @@ public class Test {
 			
 			keyRow.dataBytes = new byte[keyLen];
 			keyRow = coder.encoder(schema.keySchema, adInfo);
-//			System.out.println(Arrays.toString(keyRow.getDataBytes()));
+			System.out.println(schema.keySchema);
+			System.out.println(Arrays.toString(keyRow.getDataBytes()));
 			
 			valRow.dataBytes = new byte[valLen];
 			valRow = coder.encoder(schema.valueSchema, adInfo);
