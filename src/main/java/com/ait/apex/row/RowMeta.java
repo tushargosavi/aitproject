@@ -24,15 +24,15 @@ public class RowMeta {
 	}
 
 	public RowMeta subset(String[] keys)
-  {
-    RowMeta meta = new RowMeta();
-    for (String key : keys) {
-      if (isKeyPresent(key)) {
-        meta.addField(key, nameToTypeMap.get(key));
-      }
+	{
+	    RowMeta meta = new RowMeta();
+	    for (String key : keys) {
+	      if (isKeyPresent(key)) {
+	        meta.addField(key, nameToTypeMap.get(key));
+	      }
+	    }
+	    return meta;
     }
-    return meta;
-  }
 
 	public DataType getDataType(String key) {
 		return nameToTypeMap.get(key);

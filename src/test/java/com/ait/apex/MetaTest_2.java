@@ -148,9 +148,13 @@ public class MetaTest_2 {
 		System.out.println(Arrays.toString(row.getDataBytes()));
 
 		Person person1 = new Person();
-
+		
+		
+		
 		person1 = (Person)enCoder.decoder(rowMeta, row, person1);
 		System.out.println(person1.toString());
+		
+		System.out.println(Platform.getLong(row.dataBytes, Platform.LONG_ARRAY_OFFSET + 12));
 	}
 	
 	@Test
