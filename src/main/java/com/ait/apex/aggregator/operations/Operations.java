@@ -10,21 +10,32 @@ import java.util.Map;
 
 public class Operations
 {
-	long max = 0;
+	long max = 0, min = 99;
 	public Map<Row, Row> operations(Map.Entry<Row,Row> byteEntry, AggregationMetrics metrics, AggregationSchema schema, Map<Row, Row> resultMap)
 	{
 		RowValueFunctions rowValueFunctions = new RowValueFunctions();
 		switch (metrics.getAggTypes())
 		{
 			case MAX:
-				Row valRow = byteEntry.getValue();
-				long longVal = rowValueFunctions.readInteger(valRow, schema.valueSchema);
-				if(longVal >= max){
-					max = longVal;
+				if(resultMap.containsKey(byteEntry.getKey()))
+				{
+					long maxVal = rowValueFunctions.readInteger(byteEntry.getValue(), schema.valueSchema);
+					if(maxVal > max){
+						max = maxVal;
+						resultMap.put(byteEntry.getKey(), byteEntry.getValue());
+					}
+				}
+				else
+				{
 					resultMap.put(byteEntry.getKey(), byteEntry.getValue());
 				}
 				break;
 			case MIN:
+				long minVal = rowValueFunctions.readInteger(byteEntry.getValue(), schema.valueSchema);
+				if(minVal < min){
+					min = minVal;
+					resultMap.put(byteEntry.getKey(), byteEntry.getValue());
+				}
 				break;
 			case COUNT:
 				break;

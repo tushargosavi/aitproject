@@ -37,7 +37,7 @@ public class Test {
 		Map<Row, Row> byteMap = new HashMap<>();
 		Map<Row, Row> resultMap = new HashMap<>();
 		
-		String keys[] = {"publisher","location"};
+		String keys[] = {"publisher"};
 		String vals[] = {"cost"};
 		List<AggregationMetrics> metricsList = new ArrayList<>();
 		metricsList.add(new AggregationMetrics(keys, vals, AggregationTypes.MAX));
