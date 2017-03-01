@@ -16,26 +16,26 @@ public class BytePlatform {
         bb.putInt(value);
     }
 
-   /* public static boolean getBoolean(Object object, long offset)
+    public static byte getBoolean(Object object, long offset)
     {   ByteBuffer bb = (ByteBuffer)object;
-        return bb.getBoolean(object, offset);
+        return bb.get((int)offset);
     }
 
-    public static void putBoolean(Object object, long offset, boolean value)
+    public static void putBoolean(Object object, long offset, byte value)
     {   ByteBuffer bb = (ByteBuffer)object;
-        bb.putBoolean(object, offset, value);
+        bb.put((int)offset,value);
     }
 
     public static byte getByte(Object object, long offset)
     {   ByteBuffer bb = (ByteBuffer)object;
-        return bb.getByte(object, offset);
+        return bb.get((int)offset);
     }
 
     public static void putByte(Object object, long offset, byte value)
     {   ByteBuffer bb = (ByteBuffer)object;
-        bb.putByte(object, offset, value);
+        bb.put((int)offset,value);
     }
-    */
+
 
     public static short getShort(Object object, long offset)
     {   ByteBuffer bb = (ByteBuffer)object;
