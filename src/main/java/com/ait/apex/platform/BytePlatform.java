@@ -4,16 +4,16 @@ import java.nio.ByteBuffer;
 
 public class BytePlatform {
 
-    public static int getInt(Object object, long offset)
+    public static int getInt(Object object, long offset) throws ClassCastException
     {
      ByteBuffer bb = (ByteBuffer)object;
      return bb.getInt((int) offset);
     }
 
-    public static void putInt(Object object, long offset, int value)
+    public static void putInt(Object object, long offset, int value) throws ClassCastException
     {
         ByteBuffer bb = (ByteBuffer)object;
-        bb.putInt(value);
+        bb.putInt((int)offset,value);
     }
 
     public static byte getBoolean(Object object, long offset)
@@ -21,7 +21,7 @@ public class BytePlatform {
         return bb.get((int)offset);
     }
 
-    public static void putBoolean(Object object, long offset, byte value)
+    public static void putBoolean(Object object, long offset, byte value) throws ClassCastException
     {   ByteBuffer bb = (ByteBuffer)object;
         bb.put((int)offset,value);
     }

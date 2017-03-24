@@ -10,6 +10,11 @@ public class MemoryManager {
 
   int pageSize;
 
+  public MemoryManager()
+  {
+    pageSize=1024*1024;
+  }
+
 
   List<MemoryPage> allocatedPages = new ArrayList<>();
 
