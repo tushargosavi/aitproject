@@ -6,8 +6,10 @@ import com.ait.apex.aggregator.meta.AggregationMetrics;
 import com.ait.apex.aggregator.meta.AggregationSchema;
 import com.ait.apex.aggregator.meta.AggregationTypes;
 import com.ait.apex.row.DataType;
+import com.ait.apex.row.EntryField;
 import com.ait.apex.row.Row;
 import com.ait.apex.row.RowMeta;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 
 import java.io.IOException;
 import java.util.*;
@@ -27,8 +29,8 @@ public class POJOTest
 		
 		Map<Row, Row> byteMap = new HashMap<>();
 		
-		String keys[] = {"publisher"};
-		String val[] = {"cost","impressions"};
+		String keys[] = {"publisher","location"};
+		String val[] = {"cost"};
 		List<AggregationMetrics> metricsList = new ArrayList<>();
 		metricsList.add(new AggregationMetrics(keys, val, AggregationTypes.MAX));
 		
@@ -37,8 +39,10 @@ public class POJOTest
 		
 		AdInfo adInfo = new AdInfo("potato", "star", "LA", 123,567,true);
 		
+		Map<Row, Row> rowMap = new Object2ObjectOpenHashMap<>();
 		TestByteLength byteLength = new TestByteLength();
 		TestPojoBasedCoder coder = new TestPojoBasedCoder();
+		POJOBasedOperations pojoBasedOperations = new POJOBasedOperations();
 		
 		for(AggregationSchema schema : schemaList)
 		{
@@ -62,6 +66,10 @@ public class POJOTest
 			
 			Row valRow = coder.extractValRow(row, (totalLength - valLength), valLength);
 			System.out.println(Arrays.toString(valRow.getDataBytes()));
+			
+			EntryField entryField = new EntryField(row, valRow);
+			
+			pojoBasedOperations.test_Operations(entryField, metricsList.get(0), schema, rowMap);
 
 		}
 	}

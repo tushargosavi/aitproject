@@ -12,16 +12,24 @@ public class POJOBasedOperations implements OperationsTest {
 	
 	public void test_Operations(EntryField entryField, AggregationMetrics metrics, AggregationSchema schema, Map<Row, Row> resultMap)
 	{
-		
+		switch (metrics.getAggTypes())
+		{
+			case SUM:
+				
+				break;
+		}
 	}
 	
 	@Override
 	public int hashCode(Row row) {
-		return super.hashCode();
+		
+		return row.dataBytes.hashCode();
 	}
 	
 	@Override
 	public boolean equals(Row a, Row b) {
+		if(a.dataBytes.hashCode() == b.dataBytes.hashCode())
+			return true;
 		return false;
 	}
 }

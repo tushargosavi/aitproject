@@ -38,9 +38,9 @@ public class Test {
 		Map<Row, Row> resultMap = new HashMap<>();
 		
 		String keys[] = {"publisher"};
-		String vals[] = {"impressions"};
+		String vals[] = {"cost","impressions"};
 		List<AggregationMetrics> metricsList = new ArrayList<>();
-		metricsList.add(new AggregationMetrics(keys, vals, AggregationTypes.MAX));
+		metricsList.add(new AggregationMetrics(keys, vals, AggregationTypes.SUM));
 		
 		AggregationHelper helper = new AggregationHelper();
 		List<AggregationSchema> schemaList = helper.createAggregationSchema(rowMeta, metricsList);

@@ -148,6 +148,15 @@ public class TestPojoBasedCoder {
 		}
 		return resultRow;
 	}
+	
+	public void updateRow(Row oldRow, byte[] updatedData, int length)
+	{
+		int startIndex = Platform.getInt(oldRow.dataBytes, Platform.INT_ARRAY_OFFSET) - length;
+		for(int i = 0; i < length ;i++)
+		{
+			Platform.putInt(oldRow.dataBytes, Platform.BYTE_ARRAY_OFFSET + startIndex + i, updatedData[i]);
+		}
+	}
 }
 
 

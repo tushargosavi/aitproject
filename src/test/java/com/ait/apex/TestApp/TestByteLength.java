@@ -3,7 +3,6 @@ package com.ait.apex.TestApp;
 
 import com.ait.apex.aggregator.meta.AggregationSchema;
 import com.ait.apex.row.FieldInfo;
-import com.ait.apex.row.Row;
 import com.ait.apex.row.RowMeta;
 
 public class TestByteLength {
@@ -80,8 +79,7 @@ public class TestByteLength {
 	}
 	
 	public int getRowLength(AggregationSchema schema, Object object) throws NoSuchFieldException, IllegalAccessException {
-		int rowLength = INITIAL_VALUE + getKeyLength(schema.keySchema, object) + getValLength(schema.valueSchema, object);
-		return rowLength;
+		return (INITIAL_VALUE + getKeyLength(schema.keySchema, object) + getValLength(schema.valueSchema, object));
 	}
 	
 	public int getKeyVarOffset(RowMeta rowMeta)
