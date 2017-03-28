@@ -1,27 +1,19 @@
 package com.ait.apex.row;
 
 public class EntryField {
-	Row keyRow;
+	Row completeRow;
 	Row valRow;
 	
-	public EntryField(Row keyRow, Row valRow) {
-		this.keyRow = keyRow;
+	public EntryField(Row completeRow, Row valRow) {
+		this.completeRow = completeRow;
 		this.valRow = valRow;
 	}
 	
-	public Row getKeyRow() {
-		return keyRow;
-	}
-	
-	public void setKeyRow(Row keyRow) {
-		this.keyRow = keyRow;
+	public Row getCompleteRow() {
+		return completeRow;
 	}
 	
 	public Row getValRow() {
 		return valRow;
-	}
-	
-	public void setValRow(Row valRow) {
-		this.valRow = valRow;
 	}
 }

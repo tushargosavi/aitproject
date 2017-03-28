@@ -107,7 +107,7 @@ public class Test {
 		rowMeta.addField("impressions", DataType.LONG);
 		rowMeta.addField("clicks", DataType.BOOLEAN);
 		
-		System.out.println(rowMeta.toString());
+		//System.out.println(rowMeta.toString());
 		
 		String keys[] = {"publisher","location"};
 		String vals[] = {"cost"};
@@ -117,6 +117,8 @@ public class Test {
 		AggregationHelper helper = new AggregationHelper();
 		List<AggregationSchema> schemaList = helper.createAggregationSchema(rowMeta, metricsList);
 		System.out.println(schemaList.toString());
+		
+		
 	}
 	
 	@org.junit.Test
@@ -171,26 +173,17 @@ public class Test {
 		
 		AdInfo adInfo = new AdInfo("potato", "star", "LA", 123,567,true);
 		
-		ByteLength length = new ByteLength();
 		PojoBasedCoder coder = new PojoBasedCoder();
 		for(AggregationSchema schema : schemaList)
 		{
-//			System.out.println(schema.keySchema.toString());
-			int keyLen = length.getByteLength(schema.keySchema, adInfo);
-			int valLen = length.getByteLength(schema.valueSchema, adInfo);
 			
-			int keyVarOffset = length.getVarOffset(schema.keySchema);
-			int calVarOffset = length.getVarOffset(schema.valueSchema);
-				
 			Row keyRow = new Row();
 			Row valRow = new Row();
 			
-			keyRow.dataBytes = new byte[keyLen];
 			keyRow = coder.encoder(schema.keySchema, adInfo);
 			System.out.println(schema.keySchema);
 			System.out.println(Arrays.toString(keyRow.getDataBytes()));
 			
-			valRow.dataBytes = new byte[valLen];
 			valRow = coder.encoder(schema.valueSchema, adInfo);
 			
 			System.out.println(schema.valueSchema);
@@ -292,6 +285,30 @@ public class Test {
 			
 		}
 			
+	}
+	
+	@org.junit.Test
+	public void test7() throws NoSuchFieldException, IllegalAccessException {
+		RowMeta rowMeta = new RowMeta();
+		rowMeta.addField("publisher", DataType.STRING);
+		rowMeta.addField("advertiser", DataType.STRING);
+		rowMeta.addField("location", DataType.STRING);
+		rowMeta.addField("cost", DataType.LONG);
+		rowMeta.addField("impressions", DataType.LONG);
+		rowMeta.addField("clicks", DataType.BOOLEAN);
+		
+		//System.out.println(rowMeta.toString());
+		
+		String keys[] = {"publisher","location"};
+		String vals[] = {"cost"};
+		List<AggregationMetrics> metricsList = new ArrayList<>();
+		metricsList.add(new AggregationMetrics(keys, vals, AggregationTypes.MAX));
+		
+		AggregationHelper helper = new AggregationHelper();
+		List<AggregationSchema> schemaList = helper.createAggregationSchema(rowMeta, metricsList);
+		System.out.println(schemaList.toString());
+		
+		AdInfo adInfo = new AdInfo("potato", "star", "LA", 123,567,true);
 	}
 }
 
