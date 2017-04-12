@@ -6,13 +6,13 @@ public class MemoryPage
   final Object base;
   final int size;
 
-  MemoryPage(Object base, int size)
+  public MemoryPage(Object base, int size)
   {
     this.base = base;
     this.size = size;
   }
 
-  Object getBase() {
+  public Object getBase() {
     return base;
   }
 }
