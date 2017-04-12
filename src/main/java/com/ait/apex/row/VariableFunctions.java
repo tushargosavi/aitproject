@@ -8,7 +8,7 @@ public class VariableFunctions
 	{
 		Platform.putInt(object, offset, varoffset);
 		
-		Platform.putInt(object, offset+4, value.length());
+		Platform.putInt(object, offset + 4, value.length());
 		
 		byte[] bytestr = value.getBytes();
 		

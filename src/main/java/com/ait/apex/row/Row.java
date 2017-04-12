@@ -9,6 +9,15 @@ public class Row {
 		return dataBytes;
 	}
 	
+	public void setDataBytes(byte[] dataBytes) {
+		this.dataBytes = dataBytes;
+	}
+
+	public void addDataBytes(byte[] dataBytes, int offset)
+	{
+		
+	}
+	
 	@Override
 	public boolean equals(Object object) {
 		if (this == object) return true;

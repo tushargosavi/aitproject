@@ -1,45 +1,89 @@
 package com.ait.apex.row;
 
+import com.ait.apex.aggregator.meta.AggregationSchema;
+
 public class ByteLength
 {
-	public int getByteLength(RowMeta rowMeta, Object o) throws NoSuchFieldException, IllegalAccessException {
-		int len = 0;
-		GetFieldValues getFieldValues = new GetFieldValues();
+	final int INITIAL_VALUE = 12; //Initial value : totalLength + rowLength + valLength = 4 + 4 + 4 = 12
+	
+	public int getKeyLength(RowMeta rowMeta, Object object) throws NoSuchFieldException, IllegalAccessException {
+		int keyLength = 0;
+		
 		for(FieldInfo fieldInfo : rowMeta.getFieldInfoList())
 		{
 			switch (fieldInfo.getDataType())
 			{
 				case BOOLEAN :
-					len += 1;
+					keyLength += 1;
 					break;
 				case INTEGER:
-					len += 4;
+					keyLength += 4;
 					break;
 				case DOUBLE:
-					len +=8;
+					keyLength +=8;
 					break;
 				case FLOAT:
-					len +=4;
+					keyLength +=4;
 					break;
 				case LONG:
-					len +=8;
+					keyLength +=8;
 					break;
 				case CHARACTER:
-					len += 2;
+					keyLength += 2;
 					break;
 				case STRING:
-					len += 4;
-					String strValue = (String) o.getClass().getField(fieldInfo.getName()).get(o);
-					len += strValue.getBytes().length;
-					len += 4;
+					keyLength += 4;
+					String strValue = (String) object.getClass().getField(fieldInfo.getName()).get(object);
+					keyLength += strValue.getBytes().length;
+					keyLength += 4;
 			}
 		}
-		return len;
+		return keyLength;
 	}
-
-	public int getVarOffset(RowMeta rowMeta)
+	
+	public int getValLength(RowMeta rowMeta, Object object) throws NoSuchFieldException, IllegalAccessException {
+		int valLength = 0;
+		for(FieldInfo fieldInfo : rowMeta.getFieldInfoList())
+		{
+			switch (fieldInfo.getDataType())
+			{
+				case BOOLEAN :
+					valLength += 1;
+					break;
+				case INTEGER:
+					valLength += 4;
+					break;
+				case DOUBLE:
+					valLength +=8;
+					break;
+				case FLOAT:
+					valLength +=4;
+					break;
+				case LONG:
+					valLength +=8;
+					break;
+				case CHARACTER:
+					valLength += 2;
+					break;
+				case STRING:
+					valLength += 4;
+					String strValue = (String) object.getClass().getField(fieldInfo.getName()).get(object);
+					valLength += strValue.getBytes().length;
+					valLength += 4;
+			}
+		}
+		return valLength;
+	}
+	
+	public int getRowLength(AggregationSchema schema, Object object) throws NoSuchFieldException, IllegalAccessException {
+		return (INITIAL_VALUE + getKeyLength(schema.keySchema, object) + getValLength(schema.valueSchema, object));
+	}
+	
+	public int getKeyVarOffset(RowMeta rowMeta)
 	{
-		int len = 0;
+		//space taken by initial values
+		int len = INITIAL_VALUE;
+		
 		for(FieldInfo fieldInfo : rowMeta.getFieldInfoList())
 		{
 			switch (fieldInfo.getDataType())
@@ -69,4 +113,5 @@ public class ByteLength
 		}
 		return len;
 	}
+	
 }
