@@ -16,7 +16,11 @@ public class RowMeta {
 		fieldInfo.setDataType(dataType);
 		
 		fieldInfoList.add(fieldInfo);
+<<<<<<< HEAD
 		nameToTypeMap.put(name, dataType);
+=======
+    nameToTypeMap.put(name, dataType);
+>>>>>>> 248b3ac67de6bb5fa32f960d18f27e44fe91965c
 	}
 	
 	public boolean isKeyPresent(String key) {

@@ -9,7 +9,7 @@ public class VariableFunctions
 		Platform.putInt(object, Platform.INT_ARRAY_OFFSET + offset, varoffset);
 		
 		Platform.putInt(object, Platform.INT_ARRAY_OFFSET + offset + 4, value.length());
-		
+
 		byte[] bytestr = value.getBytes();
 		
 		for(int i=0;i<bytestr.length;i++)
