@@ -27,7 +27,6 @@ public class PojoBasedCoder{
 		//Value length
 		Platform.putInt(row.dataBytes, Platform.INT_ARRAY_OFFSET + offset, byteLength.getValLength(schema.valueSchema, object));
 		offset += 4;
-<<<<<<< HEAD
 		/*
 		Problem lies here. The keyvaroffset is being calculated for the entire schema instead of being
 		calculated for the current variable.
@@ -35,30 +34,19 @@ public class PojoBasedCoder{
 		FIX IT.
 		 */
 		//int keyVarOffset = byteLength.getKeyVarOffset(schema.keySchema);
-=======
-		
-		int keyVarOffset = byteLength.getKeyVarOffset(schema.keySchema);
->>>>>>> 248b3ac67de6bb5fa32f960d18f27e44fe91965c
-		
+
+
 		for (FieldInfo fieldInfo : schema.keySchema.getFieldInfoList())
 		{
 			switch (fieldInfo.getDataType())
 			{
 				case STRING:
-<<<<<<< HEAD
 					int keyVarOffset = offset + 8;
 					String str = (String) object.getClass().getField(fieldInfo.getName()).get(object);
 					variableFunctions.putString(row.dataBytes, offset, keyVarOffset, str);
 					offset += 8;
 					offset += str.getBytes().length;
 					keyVarOffset += str.getBytes().length + 8;
-=======
-					String str = (String) object.getClass().getField(fieldInfo.getName()).get(object);
-					variableFunctions.putString(row.dataBytes, Platform.INT_ARRAY_OFFSET + offset, keyVarOffset, str);
-					offset += 8;
-					offset += str.getBytes().length;
-					keyVarOffset += str.getBytes().length;
->>>>>>> 248b3ac67de6bb5fa32f960d18f27e44fe91965c
 					break;
 				
 				case INTEGER:
