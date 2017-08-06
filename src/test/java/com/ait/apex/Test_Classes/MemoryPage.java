@@ -1,10 +1,14 @@
 package com.ait.apex.Test_Classes;
 
+import com.ait.apex.platform.Platform;
+import com.ait.apex.row.Row;
+
 public class MemoryPage {
 
-    public byte[] page;
+    private byte[] page;
+    private int index;
 
-    public MemoryPage(byte[] page, int size) {
+    public MemoryPage() {
         page = new byte[1024];
     }
 
@@ -12,9 +16,15 @@ public class MemoryPage {
         return page;
     }
 
-    public void setPage(byte[] page) {
-        this.page = page;
+    public void setRowAtIndex(Row row, int index){
+        Platform.putByte(page, Platform.BYTE_ARRAY_OFFSET + index, row);
     }
 
+    public byte getPageDetailsAtIndex(int index) {
+        return Platform.getByte(page, Platform.BYTE_ARRAY_OFFSET + index);
+    }
 
+    public void setIndex(int index) {
+        this.index = index;
+    }
 }

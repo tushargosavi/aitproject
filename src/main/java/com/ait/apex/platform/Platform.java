@@ -1,5 +1,6 @@
 package com.ait.apex.platform;
 
+import com.ait.apex.row.Row;
 import sun.misc.Cleaner;
 import sun.misc.Unsafe;
 
@@ -7,8 +8,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.nio.ByteBuffer;
-
-import com.ait.apex.row.ByteLength;
 
 public final class Platform
 {
@@ -83,7 +82,7 @@ public final class Platform
     return _UNSAFE.getByte(object, offset);
   }
 
-  public static void putByte(Object object, long offset, byte value)
+  public static void putByte(Object object, long offset, Row value)
   {
     _UNSAFE.putByte(object, offset, value);
   }

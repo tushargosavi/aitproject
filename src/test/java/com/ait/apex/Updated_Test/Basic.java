@@ -140,8 +140,9 @@ public class Basic
         System.out.println(Arrays.toString(coder.extractKeyRow(row).getDataBytes()));
     }
 
-    @Test
-    public void test5() throws NoSuchFieldException, IllegalAccessException {
+
+    public static Row getTestResult() throws NoSuchFieldException, IllegalAccessException {
+
         RowMeta rowMeta = new RowMeta();
         rowMeta.addField("publisher", DataType.STRING);
         rowMeta.addField("advertiser", DataType.STRING);
@@ -169,14 +170,49 @@ public class Basic
 
         row.dataBytes = new byte[totalLen];
 
-        row = coder.encoder(schemaList.get(0), adInfo);
+        row = coder .encoder(schemaList.get(0), adInfo);
 
-        RowHashMap rowHashMap = new RowHashMap();
-        rowHashMap.put(row, rowHashCode(row));
-        System.out.println(rowHashMap.get(row));
+        return row;
+
     }
 
-    private int rowHashCode(Row row){
+//    @Test
+//    public void test5() throws NoSuchFieldException, IllegalAccessException {
+//        RowMeta rowMeta = new RowMeta();
+//        rowMeta.addField("publisher", DataType.STRING);
+//        rowMeta.addField("advertiser", DataType.STRING);
+//        rowMeta.addField("location", DataType.STRING);
+//        rowMeta.addField("cost", DataType.LONG);
+//        rowMeta.addField("impressions", DataType.LONG);
+//        rowMeta.addField("clicks", DataType.BOOLEAN);
+//
+//        String[] keys = {"publisher","advertiser"};
+//        String vals[] = {"cost"};
+//
+//        AggregationMetrics metrics = new AggregationMetrics(keys, vals, AggregationTypes.MAX);
+//        List<AggregationMetrics> metricsList = new ArrayList<>();
+//        metricsList.add(metrics);
+//
+//        AggregationHelper helper = new AggregationHelper();
+//        List<AggregationSchema> schemaList = helper.createAggregationSchema(rowMeta, metricsList);
+//
+//        AdInfo adInfo = new AdInfo("potato","starbucks","MH",123, 431, true);
+//
+//        ByteLength length = new ByteLength();
+//        PojoBasedCoder coder = new PojoBasedCoder();
+//        int totalLen = length.getRowLength(schemaList.get(0), adInfo);
+//        Row row = new Row();
+//
+//        row.dataBytes = new byte[totalLen];
+//
+//        row = coder.encoder(schemaList.get(0), adInfo);
+//
+//        RowHashMap rowHashMap = new RowHashMap();
+//        rowHashMap.put(row, rowHashCode(row));
+//        System.out.println(rowHashMap.get(row));
+//    }
+
+    public static int rowHashCode(Row row){
         PojoBasedCoder coder = new PojoBasedCoder();
         Row keyRow = coder.extractKeyRow(row);
 
