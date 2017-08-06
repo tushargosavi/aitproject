@@ -82,7 +82,7 @@ public final class Platform
     return _UNSAFE.getByte(object, offset);
   }
 
-  public static void putByte(Object object, long offset, Row value)
+  public static void putByte(Object object, long offset, byte value)
   {
     _UNSAFE.putByte(object, offset, value);
   }

@@ -16,10 +16,11 @@ public class MemoryPage {
         return page;
     }
 
-    public void setRowAtIndex(Row row, int index){
-        Platform.putByte(page, Platform.BYTE_ARRAY_OFFSET + index, row);
+    public void setRowAtIndex(Row row, int index) {
+        for (int i = 0; i < row.getDataBytes().length; i++) {
+            Platform.putByte(page, Platform.BYTE_ARRAY_OFFSET + index, row.dataBytes[i]);
+        }
     }
-
     public byte getPageDetailsAtIndex(int index) {
         return Platform.getByte(page, Platform.BYTE_ARRAY_OFFSET + index);
     }
