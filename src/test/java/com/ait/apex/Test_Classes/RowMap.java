@@ -4,39 +4,31 @@ import com.ait.apex.row.Row;
 class RowMap {
 
 
-    Row value;
-    int key;
+    Row key;
+    int value;
     RowMap next;
 
     public RowMap() {
     }
-
-    public RowMap(int key, Row value) {
-        this.value = value;
+    
+    public RowMap(Row key, int value) {
         this.key = key;
-    }
-
-    public Row getValue() {
-        return value;
-    }
-
-    public void setValue(Row value) {
         this.value = value;
     }
-
-    public int getKey() {
+    
+    public Row getKey() {
         return key;
     }
-
-    public void setKey(int key) {
+    
+    public void setKey(Row key) {
         this.key = key;
     }
-
-    public RowMap getNext() {
-        return next;
+    
+    public int getValue() {
+        return value;
     }
-
-    public void setNext(RowMap next) {
-        this.next = next;
+    
+    public void setValue(int value) {
+        this.value = value;
     }
 }
