@@ -1,31 +1,35 @@
 package com.ait.apex.Test_Classes;
 
-import com.ait.apex.platform.Platform;
-import com.ait.apex.row.Row;
-
 public class MemoryPage {
 
-    private byte[] page;
-    private int index;
+    public byte[] page;
+    public int offset;
+    public int pageAddress;
 
     public MemoryPage() {
-        page = new byte[1024];
     }
 
     public byte[] getPage() {
         return page;
     }
 
-    public void setRowAtIndex(Row row, int index) {
-        for (int i = 0; i < row.getDataBytes().length; i++) {
-            Platform.putByte(page, Platform.BYTE_ARRAY_OFFSET + index, row.dataBytes[i]);
-        }
-    }
-    public byte getPageDetailsAtIndex(int index) {
-        return Platform.getByte(page, Platform.BYTE_ARRAY_OFFSET + index);
+    public void setPage(byte[] page) {
+        this.page = page;
     }
 
-    public void setIndex(int index) {
-        this.index = index;
+    public int getOffset() {
+        return offset;
+    }
+
+    public void setOffset(int offset) {
+        this.offset = offset;
+    }
+
+    public int getPageAddress() {
+        return pageAddress;
+    }
+
+    public void setPageAddress(int pageAddress) {
+        this.pageAddress = pageAddress;
     }
 }
