@@ -29,8 +29,16 @@ public class New_Basic_Test {
         getRow();
         int hashCode = Basic.rowHashCode(row);
         MemoryPage memoryPage = new MemoryPage();
-        memoryPage.setRowAtIndex(row, hashCode);
-        System.out.println(memoryPage.getPageDetailsAtIndex(hashCode));
+        System.out.println(row.getDataBytes().length);
     }
+
+
+    @Test
+    public void test3(){
+        getRow();
+        int totalLen = row.dataBytes[0];
+        System.out.println(totalLen);
+    }
+
 
 }
