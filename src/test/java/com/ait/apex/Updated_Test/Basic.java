@@ -141,7 +141,7 @@ public class Basic
     }
 
 
-    public static Row getTestResult() throws NoSuchFieldException, IllegalAccessException {
+    public static Row getTestResult(AdInfo adInfo) throws NoSuchFieldException, IllegalAccessException {
 
         RowMeta rowMeta = new RowMeta();
         rowMeta.addField("publisher", DataType.STRING);
@@ -161,7 +161,7 @@ public class Basic
         AggregationHelper helper = new AggregationHelper();
         List<AggregationSchema> schemaList = helper.createAggregationSchema(rowMeta, metricsList);
 
-        AdInfo adInfo = new AdInfo("potato","starbucks","MH",123, 431, true);
+        //AdInfo adInfo = new AdInfo("potato","starbucks","MH",123, 431, true);
 
         ByteLength length = new ByteLength();
         PojoBasedCoder coder = new PojoBasedCoder();

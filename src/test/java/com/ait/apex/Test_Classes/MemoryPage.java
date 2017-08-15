@@ -1,5 +1,6 @@
 package com.ait.apex.Test_Classes;
 
+import com.ait.apex.Updated_Test.Address;
 import com.ait.apex.row.PojoBasedCoder;
 import com.ait.apex.row.Row;
 
@@ -10,7 +11,7 @@ public class MemoryPage {
     public byte[] page;
     public int offset;
     public int pageAddress;
-    public HashMap<Integer, Integer> addressMap;
+    public HashMap<Integer, Address> addressMap;
 
     public MemoryPage() {
         addressMap = new HashMap<>();
