@@ -1,8 +1,6 @@
 package com.ait.apex.Test_Classes;
 
 import com.ait.apex.Updated_Test.Address;
-import com.ait.apex.row.PojoBasedCoder;
-import com.ait.apex.row.Row;
 
 import java.util.HashMap;
 
@@ -44,11 +42,5 @@ public class MemoryPage {
         this.pageAddress = pageAddress;
     }
 
-    private void insert(Row row){
-        PojoBasedCoder coder = new PojoBasedCoder();
-        Row keyRow = coder.extractKeyRow(row);
-        int totalLen = row.dataBytes[0];
 
-
-    }
 }

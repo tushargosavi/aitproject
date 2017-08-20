@@ -2,11 +2,13 @@ package com.ait.apex.Updated_Test;
 
 import com.ait.apex.RequiredClasses.AdInfo;
 import com.ait.apex.Test_Classes.MemoryPage;
+import com.ait.apex.aggregator.operations.Operations;
 import com.ait.apex.row.PojoBasedCoder;
 import com.ait.apex.row.Row;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Map;
 
 public class POC1 {
 
@@ -100,6 +102,35 @@ public class POC1 {
         memoryPage.addressMap.put(rowHashCode(coder.extractKeyRow(row)), address);
 
         System.out.println("PageAddress: "+memoryPage.getPageAddress() +", Offset: "+memoryPage.getOffset());
+    }
+
+    @Test
+    public void test4(){
+        Operations operations = new Operations();
+        com.ait.apex.memory.MemoryPage memoryPage = new com.ait.apex.memory.MemoryPage();
+        AdInfo adInfo2 = new AdInfo("ADdsdC","BDDVC","PAK",200, 555, true);
+        getRow(adInfo2);
+
+        operations.insert(row, memoryPage);
+        System.out.println("PageAddress: "+memoryPage.getPageAddress() +", Offset: "+memoryPage.getOffset());
+
+        AdInfo adInfo = new AdInfo("ADC","BDC","PAK",200, 555, true);
+        getRow(adInfo);
+
+        operations.insert(row, memoryPage);
+        System.out.println("PageAddress: "+memoryPage.getPageAddress() +", Offset: "+memoryPage.getOffset());
+
+        for(Map.Entry<Integer, com.ait.apex.memory.Address> index : memoryPage.addressMap.entrySet()){
+            System.out.println(index.getKey() +", "+index.getValue().toString());
+        }
+
+        System.out.println(memoryPage.page[47]);
+        System.out.println(memoryPage.getAddressMap().get(92).getAddress());
+        int index = memoryPage.getAddressMap().get(92).getAddress();
+        System.out.println("LOL");
+        for(int i = index; i < memoryPage.offset;i++){
+            System.out.print(memoryPage.page[i]+",");
+        }
     }
 
 }
