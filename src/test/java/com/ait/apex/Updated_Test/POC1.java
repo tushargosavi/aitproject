@@ -1,8 +1,8 @@
 package com.ait.apex.Updated_Test;
 
+import com.ait.apex.Operations.MemoryPageOperations;
 import com.ait.apex.RequiredClasses.AdInfo;
 import com.ait.apex.Test_Classes.MemoryPage;
-import com.ait.apex.aggregator.operations.Operations;
 import com.ait.apex.row.PojoBasedCoder;
 import com.ait.apex.row.Row;
 import org.junit.Test;
@@ -106,7 +106,7 @@ public class POC1 {
 
     @Test
     public void test4(){
-        Operations operations = new Operations();
+        MemoryPageOperations operations = new MemoryPageOperations();
         com.ait.apex.memory.MemoryPage memoryPage = new com.ait.apex.memory.MemoryPage();
         AdInfo adInfo2 = new AdInfo("ADdsdC","BDDVC","PAK",200, 555, true);
         getRow(adInfo2);
